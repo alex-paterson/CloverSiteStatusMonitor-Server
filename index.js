@@ -20,12 +20,15 @@ var globalCorsOptions = {
 mongoose.connect('mongodb://localhost:clover/clover');
 
 app.use(morgan('combined'));
-app.use(cors(globalCorsOptions));
+// app.use(cors(globalCorsOptions));
 app.use(bodyParser.json({type:'*/*'}));
 
-app.options('*', cors());
+// app.options('*', cors());
 // Add headers
 app.use(function (req, res, next) {
+
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'http://clovermon.online');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
