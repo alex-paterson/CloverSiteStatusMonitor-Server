@@ -22,7 +22,7 @@ var globalCorsOptions = {
 mongoose.connect('mongodb://localhost:clover/clover');
 
 app.use(morgan('combined'));
-app.options('*', cors());
+app.options('*', cors(globalCorsOptions));
 app.use(cors(globalCorsOptions));
 app.use(bodyParser.json({type:'*/*'}));
 
