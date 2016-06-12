@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt-nodejs');
 var uuid = require('uuid');
 
+
 var siteSchema = require('./site').schema;
 var mailers = require('../mailers');
 
@@ -39,6 +40,8 @@ userSchema.pre('save', function(next) {
         next();
       });
     });
+  } else {
+    next();
   }
 });
 

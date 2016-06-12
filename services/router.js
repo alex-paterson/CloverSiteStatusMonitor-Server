@@ -1,18 +1,15 @@
 var passport = require('passport');
-const multer  = require('multer');
 var express = require('express');
 
-const AuthenticationController = require('../controllers/authentication_controller');
-const UsersController = require('../controllers/users_controller');
-const SitesController = require('../controllers/sites_controller');
+var AuthenticationController = require('../controllers/authentication_controller');
+var UsersController = require('../controllers/users_controller');
+var SitesController = require('../controllers/sites_controller');
 
-const passportService = require('./passport'); // Registers our strategies
-const requireAuth = passport.authenticate('jwt', {session: false});
-const requireSignIn = passport.authenticate('local', {session: false});
+var passportService = require('./passport'); // Registers our strategies
+var requireAuth = passport.authenticate('jwt', {session: false});
+var requireSignIn = passport.authenticate('local', {session: false});
 
 var router = express.Router();
-var upload = multer({ dest: 'uploads/' })
-
 
 // Auth Routes
 // ----------------------------------------------------
@@ -43,8 +40,9 @@ router.route('/users/:user_id/sites')
   .post([requireAuth, UsersController.requireCorrectUser, SitesController.create])
 
 router.route('/users/:user_id/sites/:site_id')
-  .delete([requireAuth, UsersController.requireCorrectUser, SitesController.destroy])
   .patch([requireAuth, UsersController.requireCorrectUser, SitesController.update])
+  .delete([requireAuth, UsersController.requireCorrectUser, SitesController.destroy])
+
 
 router.route('/users/:user_id/sites/:site_id/tests')
   .post([requireAuth, UsersController.requireCorrectUser, SitesController.createTest])

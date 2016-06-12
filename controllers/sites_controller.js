@@ -58,28 +58,27 @@ exports.destroy = function(req, res) {
   });
 }
 
+
 exports.update = function(req, res) {
   var user = req.user;
   var site_id = req.params.site_id;
-  var theSite;
-  user.sites = user.sites.map((site) => {
-    if (site._id === site_id) {
-      if (req.body.name) {
-        site.name = req.body.name;
+
+  User.findById(user._id, function(err, doc) {
+    // if (req.body.name) {
+    //   doc.sites.id(site_id).name = req.body.name;
+    // }
+    // if (req.body.url) {
+    //   doc.sites.id(site_id).url = req.body.url;
+    // }
+    console.log("HDSAIUIUIHUHIUADS")
+    doc.save((err, message) => {
+      console.log("KILOL ME BICGUIADHUASDHUDSAHIUDASIUHDSAIUIUIHUHIUADS")
+      if (err) {
+        res.status(422).send(err);
+      } else {
+        res.send({site: user.sites.id(site_id)});
       }
-      if (req.body.url) {
-        site.url = req.body.url;
-      }
-    }
-    theSite = site;
-    return site;
-  });
-  user.save((err, message) => {
-    if (err) {
-      res.status(422).send(err);
-    } else {
-      res.send({site: theSite});
-    }
+    });
   });
 }
 
