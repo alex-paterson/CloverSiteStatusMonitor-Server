@@ -9,7 +9,8 @@ var cors = require('cors');
 
 var whitelist = [
     'http://localhost:3000',
-    'http://clovermon.online'
+    'http://clovermon.online',
+    'clovermon.online'
 ];
 var globalCorsOptions = {
     origin: function(origin, callback) {
