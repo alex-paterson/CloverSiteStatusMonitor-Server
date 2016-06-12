@@ -63,22 +63,18 @@ exports.update = function(req, res) {
   var user = req.user;
   var site_id = req.params.site_id;
 
-  User.findById(user._id, function(err, doc) {
-    // if (req.body.name) {
-    //   doc.sites.id(site_id).name = req.body.name;
-    // }
-    // if (req.body.url) {
-    //   doc.sites.id(site_id).url = req.body.url;
-    // }
-    console.log("HDSAIUIUIHUHIUADS")
-    doc.save((err, message) => {
-      console.log("KILOL ME BICGUIADHUASDHUDSAHIUDASIUHDSAIUIUIHUHIUADS")
-      if (err) {
-        res.status(422).send(err);
-      } else {
-        res.send({site: user.sites.id(site_id)});
-      }
-    });
+  if (req.body.name) {
+    user.sites.id(site_id).name = req.body.name;
+  }
+  if (req.body.url) {
+    user.sites.id(site_id).url = req.body.url;
+  }
+  user.save((err, message) => {
+    if (err) {
+      res.status(422).send(err);
+    } else {
+      res.send({site: user.sites.id(site_id)});
+    }
   });
 }
 
