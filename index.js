@@ -1,26 +1,27 @@
-const express = require('express');
-const http = require('http');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const app = express();
-const router = require('./services/router');
-const mongoose = require('mongoose');
-const cors = require('cors');
+var express = require('express');
+var http = require('http');
+var bodyParser = require('body-parser');
+var morgan = require('morgan');
+var app = express();
+var router = require('./services/router');
+var mongoose = require('mongoose');
+var cors = require('cors');
 
 var whitelist = [
     'http://localhost:3000',
-    'http://clovermon.online',
-]
+    'http://clovermon.online'
+];
 var globalCorsOptions = {
     origin: function(origin, callback) {
         callback(null, whitelist.indexOf(origin) !== -1);
     }
 };
 
-mongoose.connect('mongodb://localhost:clover/clover')
+mongoose.connect('mongodb://localhost:clover/clover');
 
 app.use(morgan('combined'));
 app.use(cors(globalCorsOptions));
+app.options('*', cors());
 app.use(bodyParser.json({type:'*/*'}));
 app.use('/v1', router);
 
