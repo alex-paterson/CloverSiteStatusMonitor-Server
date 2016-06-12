@@ -15,7 +15,8 @@ var whitelist = [
 var globalCorsOptions = {
     origin: function(origin, callback) {
         callback(null, whitelist.indexOf(origin) !== -1);
-    }
+    },
+    methods: ['GET', 'PUT', 'POST', 'PATCH', 'OPTIONS', 'DELETE']
 };
 
 mongoose.connect('mongodb://localhost:clover/clover');
