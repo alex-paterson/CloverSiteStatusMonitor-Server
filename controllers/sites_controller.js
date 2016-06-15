@@ -47,8 +47,8 @@ exports.create = function(req, res) {
 
 exports.destroy = function(req, res) {
   var user = req.user;
-  var siteId = req.query.siteId;
-  user.sites.pull({siteId: siteId});
+  var site_id = req.params.site_id;
+  user.sites.pull({_id: site_id});
   user.save((err, message) => {
     if (err) {
       res.status(422).send(err);
