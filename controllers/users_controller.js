@@ -27,6 +27,14 @@ exports.resetPassword = function(req, res) {
   });
 }
 
+exports.deleteAccount = function(req, res, next) {
+  var email = req.body.email;
+  User.remove({email: req.user.email}, function(err) {
+    if (err) { return next(err) }
+    res.send("Success!");
+  });
+}
+
 exports.resetPasswordComplete = function(req, res) {
   var user_id = req.params.user_id;
   var token = req.body.token;

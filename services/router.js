@@ -24,6 +24,7 @@ router.route('/signup')
 // ----------------------------------------------------
 
 router.route('/users/:user_id')
+  .delete([requireAuth, UsersController.requireCorrectUser, UsersController.deleteAccount])
   .get([requireAuth, UsersController.requireCorrectUser, UsersController.getUserPayload])
 
 router.route('/reset_password')
@@ -49,7 +50,6 @@ router.route('/users/:user_id/sites/:site_id/tests')
 
 router.route('/users/:user_id/sites/:site_id/tests/:test_id')
   .delete([requireAuth, UsersController.requireCorrectUser, SitesController.deleteTest])
-
 
 
 // Method Routes
